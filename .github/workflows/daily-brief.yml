@@ -1,5 +1,8 @@
 name: Daily Market Brief
 
+permissions:
+  contents: write
+
 on:
   schedule:
     # 4:30 PM ET during daylight saving time = 20:30 UTC (covers most of the year)
