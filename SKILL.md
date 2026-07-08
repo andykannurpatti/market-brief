@@ -31,6 +31,15 @@ Runs on schedule via GitHub Actions. No local machine or manual intervention nee
 - Commit `.github/workflows/daily-brief.yml` to repo
 - No local machine or manual intervention needed
 
+**Automation Scope:**
+- Collects live market data (Yahoo Finance + FRED APIs)
+- Generates HTML report
+- Publishes to GitHub Pages automatically
+- Stores market JSON data (not committed to git)
+
+**Manual Step:**
+- Email distribution handled separately (not stored on GitHub)
+
 **Data Sources:**
 - **Equities:** Yahoo Finance (SPY, QQQ, IWM, VIX, TLT)
 - **Fixed Income:** Yahoo Finance + manual (10Y, 2Y yields, HY spreads, curve calc)
@@ -57,28 +66,25 @@ Use the provided JSON template. Update all data fields:
 - Overall Condition Assessment section
 - Email subject + body
 
-## Step 1: Collect Market Data (Manual)
+## Manual Workflow (Local Testing)
+
+If you need to run manually or test locally:
+
 ```bash
 export FRED_API_KEY="your_key_here"
 node collectMarketData.js > marketBrief_$(date +%Y-%m-%d).json
-```
-
-## Step 2: Generate HTML & Email
-```bash
 node generateBrief.js marketBrief_$(date +%Y-%m-%d).json
 ```
 
 Outputs:
-- `DailyBrief_[YYYY-MM-DD].html` — Report ready to publish
-- `email_[YYYY-MM-DD].json` — Email draft with key metrics and GitHub Pages link
+- `DailyBrief_[YYYY-MM-DD].html` — HTML report
+- `marketBrief_[YYYY-MM-DD].json` — Market data source
 
-Both derive from same JSON source → guaranteed consistency.
-
-## Step 3: Publish to GitHub
-
+**To publish:**
 ```bash
-cd /path/to/market-brief/repo
-git add index.html archive/[YYYY-MM-DD].html
+cp DailyBrief_[YYYY-MM-DD].html index.html
+cp DailyBrief_[YYYY-MM-DD].html archive/[YYYY-MM-DD].html
+git add index.html archive/[YYYY-MM-DD].html marketBrief_*.json
 git commit -m "Daily brief [YYYY-MM-DD]"
 git push origin main
 ```
@@ -86,10 +92,6 @@ git push origin main
 **Live URLs:**
 - Latest: https://andykannurpatti.github.io/market-brief/
 - Dated: https://andykannurpatti.github.io/market-brief/archive/[YYYY-MM-DD].html
-
-## Step 4: Email Draft
-
-`email_[YYYY-MM-DD].json` contains the formatted email ready for your distribution list.
 
 ---
 
@@ -140,6 +142,6 @@ SCHEDULE & EXECUTION
 3. Done — workflow runs on schedule automatically
 
 **Monitor:**
-- Check Actions tab in GitHub repo to see run history
+- Check Actions tab in GitHub repo to see run history and logs
 - Reports appear at https://andykannurpatti.github.io/market-brief/
-- Email drafts stored in repo as `email_[YYYY-MM-DD].json`
+- Market data JSON files committed to repo for reference
