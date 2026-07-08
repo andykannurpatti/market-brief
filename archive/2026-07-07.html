@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Market Briefing — July 7, 2026 · Mandala Sustainable Solutions</title>
+    <title>Daily Market Briefing — 2026-07-07 · Mandala Sustainable Solutions</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: #EFF4ED;
@@ -18,12 +17,10 @@
             line-height: 1.6;
             padding: 20px;
         }
-
         .container {
             max-width: 900px;
             margin: 0 auto;
         }
-
         header {
             background-color: #2A5740;
             color: white;
@@ -32,26 +29,22 @@
             margin-bottom: 30px;
             text-align: center;
         }
-
         header h1 {
             font-size: 28px;
             margin-bottom: 5px;
             font-weight: 600;
         }
-
         header .subtitle {
             font-size: 14px;
             opacity: 0.95;
             letter-spacing: 0.5px;
         }
-
         .report-date {
             color: white;
             font-size: 12px;
             margin-top: 10px;
             opacity: 0.85;
         }
-
         .section {
             background: white;
             border-radius: 8px;
@@ -59,7 +52,6 @@
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-
         .section h2 {
             color: #2A5740;
             font-size: 20px;
@@ -68,32 +60,16 @@
             border-bottom: 2px solid #EFF4ED;
             font-weight: 600;
         }
-
-        .subsection {
-            margin-bottom: 20px;
-        }
-
-        .subsection h3 {
-            color: #2A5740;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
         .bullet-list {
             list-style: none;
             padding: 0;
         }
-
         .bullet-list li {
             padding: 8px 0 8px 25px;
             position: relative;
             font-size: 14px;
             line-height: 1.7;
         }
-
         .bullet-list li:before {
             content: "•";
             position: absolute;
@@ -102,7 +78,6 @@
             font-weight: bold;
             font-size: 16px;
         }
-
         .metric {
             display: inline-block;
             background-color: #f5f5f5;
@@ -114,21 +89,9 @@
             margin-bottom: 8px;
             border-left: 3px solid #2A5740;
         }
-
-        .positive {
-            color: #27a745;
-            font-weight: 600;
-        }
-
-        .negative {
-            color: #dc3545;
-            font-weight: 600;
-        }
-
-        .neutral {
-            color: #666;
-        }
-
+        .positive { color: #27a745; font-weight: 600; }
+        .negative { color: #dc3545; font-weight: 600; }
+        .neutral { color: #666; }
         .signal-box {
             background-color: #EFF4ED;
             padding: 15px;
@@ -138,49 +101,13 @@
             font-size: 13px;
             line-height: 1.8;
         }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 15px 0;
-        }
-
-        .grid-item {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 6px;
-            border-left: 4px solid #2A5740;
-        }
-
-        .grid-item h4 {
-            color: #2A5740;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 0.3px;
-        }
-
-        .grid-item p {
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .assessment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
-        }
-
         .assessment-card {
             background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
             padding: 15px;
             border-radius: 6px;
             border-top: 4px solid #2A5740;
+            margin-bottom: 15px;
         }
-
         .assessment-card h4 {
             color: #2A5740;
             font-size: 12px;
@@ -189,36 +116,36 @@
             letter-spacing: 0.3px;
             margin-bottom: 8px;
         }
-
         .assessment-card .value {
             font-size: 18px;
             font-weight: 600;
             color: #2A5740;
             margin-bottom: 5px;
         }
-
         .assessment-card .reason {
             font-size: 12px;
             color: #666;
             line-height: 1.5;
         }
-
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .overall-assessment {
+            text-align: center;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #EFF4ED;
+            border-radius: 6px;
+            border: 2px solid #2A5740;
         }
-
-        .watchpoint {
-            background-color: #fef8e7;
-            border-left: 4px solid #ff9800;
-            padding: 15px;
-            border-radius: 4px;
-            font-size: 13px;
-            margin: 10px 0;
-            line-height: 1.7;
+        .overall-assessment h3 {
+            color: #2A5740;
+            font-size: 18px;
+            margin-bottom: 8px;
         }
-
+        .overall-assessment .value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2A5740;
+            margin-bottom: 8px;
+        }
         .disclaimer {
             background-color: #f0f0f0;
             border-radius: 6px;
@@ -229,7 +156,6 @@
             margin-top: 30px;
             font-style: italic;
         }
-
         .footer {
             text-align: center;
             color: #999;
@@ -238,40 +164,10 @@
             padding-top: 20px;
             border-top: 1px solid #ddd;
         }
-
-        .page-break {
-            page-break-after: always;
-            margin: 40px 0;
-        }
-
         @media (max-width: 768px) {
-            .grid-2, .two-column, .assessment-grid {
-                grid-template-columns: 1fr;
-            }
-
-            header h1 {
-                font-size: 22px;
-            }
-
-            body {
-                padding: 12px;
-            }
-
-            .section {
-                padding: 18px;
-            }
-        }
-
-        @media print {
-            body {
-                background-color: white;
-            }
-
-            .section {
-                page-break-inside: avoid;
-                box-shadow: none;
-                border: 1px solid #eee;
-            }
+            body { padding: 12px; }
+            .section { padding: 18px; }
+            header h1 { font-size: 22px; }
         }
     </style>
 </head>
@@ -279,37 +175,32 @@
     <div class="container">
         <header>
             <h1>Daily Market Briefing</h1>
-            <p class="subtitle">Tuesday, July 7, 2026 · Mandala Sustainable Solutions</p>
+            <p class="subtitle">Monday, July 6, 2026 · Mandala Sustainable Solutions</p>
             <p class="report-date">For personal investment awareness</p>
         </header>
 
-        <!-- PAGE 1 -->
         <div class="section">
             <h2>Executive Summary</h2>
             <ul class="bullet-list">
-                <li><strong>Market Condition:</strong> <span class="negative">Caution</span> — Mixed signals with equity pullback and rising rates pressuring long-end bonds.</li>
-                <li><strong>Key Signal:</strong> Oil's +2.9% surge to $70.53 on Middle East geopolitical tension (LNG incident in Strait of Hormuz) driving Treasury yields to 2-week highs; 10Y up to 4.50%.</li>
-                <li><strong>Risk to Watch:</strong> Widening policy uncertainty: Fed on hold, but rate hike expectations rising through 2H 2026; CPI still 4.2% YoY, well above 2% target.</li>
-                <li><strong>Cross-Asset Note:</strong> Risk-off bias evident—tech (QQQ) weakness, Treasury long-end selloff (TLT -0.78%), credit spreads holding firm (275 bps) but tight.</li>
+                <li>Market Condition: Stretched — Tight valuations, rising rates, geopolitical tail-risk, narrowing breadth.</li>
+                <li>Key Signal: Oil's +2.9% surge to $70.53 on Middle East geopolitical tension (LNG incident in Strait of Hormuz) driving Treasury yields to 2-week highs; 10Y up to 4.50%.</li>
+                <li>Risk to Watch: Widening policy uncertainty—Fed on hold, but rate hike expectations rising through 2H 2026; CPI still 4.2% YoY, well above 2% target.</li>
+                <li>Cross-Asset Note: Risk-off bias evident—tech (QQQ) weakness, Treasury long-end selloff (TLT -0.78%), credit spreads holding firm (275 bps) but tight.</li>
             </ul>
         </div>
 
         <div class="section">
             <h2>Equities</h2>
-
-            <div class="subsection">
+            <div style="margin-bottom: 15px;">
                 <div class="metric">SPY: $746.79 <span class="negative">-0.60%</span></div>
                 <div class="metric">QQQ: $722.82 <span class="positive">+1.43%</span></div>
-                <div class="metric">IWM: $298.90 <span class="neutral">Flat</span></div>
+                <div class="metric">IWM: $298.9 <span class="neutral">Flat</span></div>
                 <div class="metric">VIX: 15.57 <span class="neutral">Normal</span></div>
             </div>
-
-            <div class="subsection">
-                <h3>Sector Breakdown</h3>
-                <p style="margin: 10px 0; font-size: 13px;"><strong>Strength:</strong> Energy (buoyed by oil), Consumer Staples (defensive bid)</p>
-                <p style="margin: 10px 0; font-size: 13px;"><strong>Weakness:</strong> Technology (profit-taking amid rate concerns), Utilities (yield-sensitive), Discretionary</p>
+            <div style="margin: 15px 0; font-size: 13px;">
+                <p style="margin: 8px 0;"><strong>Strength:</strong> Energy (oil surge), Consumer Staples (defensive bid)</p>
+                <p style="margin: 8px 0;"><strong>Weakness:</strong> Technology (profit-taking), Utilities (yield-sensitive), Discretionary</p>
             </div>
-
             <div class="signal-box">
                 <strong>2-Sentence Synthesis:</strong> SPY's 0.60% loss reflects broad-market unease over rising rates and oil-driven inflation concerns, while QQQ's resilience (likely from mega-cap FANG strength) masks underlying tech sector vulnerability. Small caps (IWM) treading water—no directional conviction in a risk-off environment.
             </div>
@@ -317,21 +208,19 @@
 
         <div class="section">
             <h2>Fixed Income</h2>
-
-            <div class="grid-2">
-                <div class="grid-item">
-                    <h4>Treasury Yields</h4>
-                    <p><strong>10Y:</strong> 4.50%</p>
-                    <p><strong>2Y:</strong> 4.14%</p>
-                    <p><strong>Curve:</strong> <span class="positive">+36 bps</span> (Steepening)</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 15px 0;">
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #2A5740;">
+                    <h4 style="color: #2A5740; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Treasury Yields</h4>
+                    <p style="font-size: 13px;"><strong>10Y:</strong> 4.5%</p>
+                    <p style="font-size: 13px;"><strong>2Y:</strong> 4.14%</p>
+                    <p style="font-size: 13px;"><strong>Curve:</strong> <span class="positive">+36 bps</span> (Steepening)</p>
                 </div>
-                <div class="grid-item">
-                    <h4>Credit & Bonds</h4>
-                    <p><strong>HY Spreads:</strong> 275 bps (Tight)</p>
-                    <p><strong>TLT:</strong> $84.78 <span class="negative">-0.78%</span></p>
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #2A5740;">
+                    <h4 style="color: #2A5740; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Credit & Bonds</h4>
+                    <p style="font-size: 13px;"><strong>HY Spreads:</strong> 275 bps (Tight)</p>
+                    <p style="font-size: 13px;"><strong>TLT:</strong> $84.78 <span class="negative">-0.78%</span></p>
                 </div>
             </div>
-
             <div class="signal-box">
                 <strong>2-Sentence Synthesis:</strong> Long-end Treasury selloff (TLT weakness) reflects rising rate expectations; the curve steepening slightly (10Y climbing faster than 2Y) signals growth/inflation concerns over rate cuts. High-yield spreads remaining tight (275 bps) despite market jitters—credit investors still pricing benign default risk, though vulnerable to geopolitical shocks (oil).
             </div>
@@ -339,109 +228,80 @@
 
         <div class="section">
             <h2>Commodities & Dollar</h2>
-
-            <div class="grid-2">
-                <div class="grid-item">
-                    <h4>Energy & Metals</h4>
-                    <p><strong>WTI:</strong> $70.53 <span class="positive">+2.90%</span></p>
-                    <p><strong>Gold:</strong> ~$4,150 (Stable)</p>
-                    <p><strong>Copper:</strong> >$6.15/lb (Firm)</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 15px 0;">
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #2A5740;">
+                    <h4 style="color: #2A5740; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Energy & Metals</h4>
+                    <p style="font-size: 13px;"><strong>WTI:</strong> $70.53 <span class="positive">+2.90%</span></p>
+                    <p style="font-size: 13px;"><strong>Gold:</strong> ~$4150 (Stable)</p>
+                    <p style="font-size: 13px;"><strong>Copper:</strong> >$6.15/lb (Above this level, firm)</p>
                 </div>
-                <div class="grid-item">
-                    <h4>Dollar</h4>
-                    <p><strong>DXY:</strong> 100.91 <span class="positive">+0.03%</span></p>
-                    <p><em>Slight strength; conflicting signals (higher rates vs. geopolitical risk flight-to-quality).</em></p>
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #2A5740;">
+                    <h4 style="color: #2A5740; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Dollar</h4>
+                    <p style="font-size: 13px;"><strong>DXY:</strong> 100.91 <span class="positive">+0.03%</span></p>
+                    <p style="font-size: 12px; color: #666; margin-top: 8px;"><em>Slight strength; conflicting signals (higher rates vs. geopolitical risk flight-to-quality).</em></p>
                 </div>
             </div>
-
             <div class="signal-box">
                 <strong>1–2 Sentence Synthesis:</strong> Oil's sharp rally (geopolitical premium on Strait of Hormuz incident) is the dominant commodity story, signaling inflation tail-risk. Gold holding steady suggests balanced safe-haven and inflation-hedge demand; copper firmness implies industrial demand remains intact despite growth concerns.
             </div>
         </div>
 
-        <div class="page-break"></div>
-
-        <!-- PAGE 2 -->
         <div class="section">
             <h2>Macro Backdrop</h2>
-
-            <div class="grid-2">
-                <div class="grid-item">
-                    <h4>Monetary Policy</h4>
-                    <p><strong>Fed Funds Rate:</strong> 3.50%–3.75% (On Hold)</p>
-                    <p style="margin-top: 8px; font-size: 12px; color: #666;">Next FOMC: July 28–29, 2026. Market pricing: 1 hike by October 2026.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 15px 0;">
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #2A5740;">
+                    <h4 style="color: #2A5740; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Monetary Policy</h4>
+                    <p style="font-size: 13px;"><strong>Fed Funds Rate:</strong> 3.50%-3.75% (On Hold)</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 8px;">Next FOMC: July 28-29, 2026</p>
                 </div>
-                <div class="grid-item">
-                    <h4>Inflation</h4>
-                    <p><strong>Latest CPI (May 2026):</strong> 4.2% YoY</p>
-                    <p style="margin-top: 8px; font-size: 12px; color: #666;">Headline at 4.17% YoY; Core at 2.82% YoY. Still well above Fed's 2% target.</p>
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="grid-item">
-                    <h4>Labor Market</h4>
-                    <p><strong>Jobless Claims:</strong> 215,000 (week ending 6/27)</p>
-                    <p style="margin-top: 8px; font-size: 12px; color: #666;">4-week moving average: 222,000. Lowest in 5 weeks; below expectations.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>Manufacturing Activity</h4>
-                    <p><strong>ISM PMI (June):</strong> 53.3</p>
-                    <p style="margin-top: 8px; font-size: 12px; color: #666;">6th straight month in expansion; slowdown from May (54.0). Easing but resilient.</p>
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #2A5740;">
+                    <h4 style="color: #2A5740; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Inflation</h4>
+                    <p style="font-size: 13px;"><strong>Latest CPI:</strong> 4.2% YoY (May 2026)</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 8px;">Well above Fed's 2% target</p>
                 </div>
             </div>
-
             <div class="signal-box">
-                <strong>3–4 Sentence Synthesis:</strong> Fed remains on pause at 3.50%–3.75%, but market is pricing a hike by October as inflation remains sticky (4.2% vs. 2% target) and yields have begun to rise organically. Labor market remains solid (claims under 220k), and manufacturing continues its expansion, limiting case for rate cuts. However, geopolitical oil shock and tightening financial conditions (rising rates, narrowing credit) could tip growth lower, forcing recalibration of rate expectations. Macro regime is shifting from "hold indefinitely" toward "cautious tightening" as inflation takes precedence.
+                <strong>Macro Synthesis:</strong> Fed remains on pause at 3.50%-3.75%, but market is pricing a hike by October as inflation remains sticky (4.2% vs. 2% target) and yields have begun to rise organically. Labor market remains solid (claims under 220k), and manufacturing continues its expansion, limiting case for rate cuts. However, geopolitical oil shock and tightening financial conditions (rising rates, narrowing credit) could tip growth lower, forcing recalibration of rate expectations. Macro regime is shifting from 'hold indefinitely' toward 'cautious tightening' as inflation takes precedence.
             </div>
         </div>
 
         <div class="section">
             <h2>Overall Condition Assessment</h2>
-
-            <div class="assessment-grid">
-                <div class="assessment-card">
-                    <h4>Trend</h4>
-                    <div class="value">Neutral</div>
-                    <div class="reason">SPY down but off lows; no clear direction. Rate backdrop turning unfriendly; oil shock clouds forward view.</div>
-                </div>
-                <div class="assessment-card">
-                    <h4>Breadth</h4>
-                    <div class="value">Narrowing</div>
-                    <div class="reason">QQQ holding up (mega-cap strength) while SPY slips and IWM flat—divergence is widening. Risk-off selective.</div>
-                </div>
-                <div class="assessment-card">
-                    <h4>Stress</h4>
-                    <div class="value">Elevated</div>
-                    <div class="reason">VIX at 15.57 (normal level), but geopolitical premium, rate volatility, and yield-curve flattening point to higher latent stress.</div>
-                </div>
+            <div class="assessment-card">
+                <h4>Trend</h4>
+                <div class="value">Neutral</div>
             </div>
-
-            <div style="text-align: center; margin-top: 25px; padding: 20px; background-color: #EFF4ED; border-radius: 6px; border: 2px solid #2A5740;">
-                <h3 style="color: #2A5740; font-size: 18px; margin-bottom: 8px;">Market Condition</h3>
-                <p style="font-size: 16px; font-weight: 600; color: #2A5740;">Stretched</p>
-                <p style="font-size: 12px; color: #666; margin-top: 8px;">Valuations not cheap; rates rising; geopolitical tail-risk materializing. Favorable setup for discipline and selectivity over broad long exposure.</p>
+            <div class="assessment-card">
+                <h4>Breadth</h4>
+                <div class="value">Narrowing</div>
+            </div>
+            <div class="assessment-card">
+                <h4>Stress Level</h4>
+                <div class="value">Elevated</div>
+            </div>
+            <div class="overall-assessment">
+                <h3>Market Condition</h3>
+                <div class="value">Stretched</div>
             </div>
         </div>
 
         <div class="section">
             <h2>Watchpoints for Tomorrow</h2>
             <ul class="bullet-list">
-                <li><strong>Oil & Geopolitics:</strong> Monitor Strait of Hormuz tension. If LNG incident escalates, oil could spike above $72, driving 10Y yields even higher.</li>
-                <li><strong>Fed Commentary:</strong> Watch for any Fed speakers this week signaling tightening bias ahead of July 28–29 FOMC decision.</li>
-                <li><strong>Tech Earnings & Guidance:</strong> Mega-cap earnings season underway; forward guidance crucial given rate headwinds.</li>
-                <li><strong>Yield Curve:</strong> Track 10Y vs. 2Y spread; if 10Y drops without 2Y falling, curve will flatten further—bearish signal.</li>
-                <li><strong>Jobless Claims (July 9):</strong> Next weekly report due Thursday; watch for uptick that might signal labor cooling and justify rate-cut repricing.</li>
+                <li>Oil & Geopolitics: Monitor Strait of Hormuz tension. If LNG incident escalates, oil could spike above $72, driving 10Y yields even higher.</li>
+                <li>Fed Commentary: Watch for any Fed speakers this week signaling tightening bias ahead of July 28–29 FOMC decision.</li>
+                <li>Tech Earnings & Guidance: Mega-cap earnings season underway; forward guidance crucial given rate headwinds.</li>
+                <li>Yield Curve: Track 10Y vs. 2Y spread; if 10Y drops without 2Y falling, curve will flatten further—bearish signal.</li>
+                <li>Jobless Claims (July 9): Next weekly report due Thursday; watch for uptick that might signal labor cooling and justify rate-cut repricing.</li>
             </ul>
         </div>
 
         <div class="disclaimer">
-            <strong>Disclaimer:</strong> This report is for informational and educational purposes only and does not constitute investment advice, a solicitation, or a recommendation to buy or sell any security. Past market conditions are not indicative of future results. Andy Kannurpatti and Mandala Sustainable Solutions LLC are not registered investment advisors. Recipients should consult a qualified financial advisor before making any investment decisions. Data sourced from Yahoo Finance, FRED, CNBC, Trading Economics, ISM, and public web sources — accuracy not guaranteed. Report generated: July 7, 2026.
+            <strong>Disclaimer:</strong> This report is for informational and educational purposes only and does not constitute investment advice, a solicitation, or a recommendation to buy or sell any security. Past market conditions are not indicative of future results. Andy Kannurpatti and Mandala Sustainable Solutions LLC are not registered investment advisors. Recipients should consult a qualified financial advisor before making any investment decisions. Data sourced from Yahoo Finance, FRED, CNBC, Trading Economics, ISM, and public web sources — accuracy not guaranteed.
         </div>
 
         <div class="footer">
-            <p>Mandala Sustainable Solutions LLC | San Jose, CA</p>
-            <p>Market Intelligence for Conscious Capital Allocation</p>
+            <p>Mandala Sustainable Solutions · San Jose, CA</p>
         </div>
     </div>
 </body>
