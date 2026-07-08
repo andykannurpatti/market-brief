@@ -1,0 +1,41 @@
+name: Daily Market Brief
+
+on:
+  schedule:
+    # 4:30 PM ET = 21:30 UTC (or 20:30 UTC during EDT)
+    # Using 21:30 UTC for standard time
+    - cron: '30 21 * * 1-5'
+
+jobs:
+  generate-brief:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Generate market data
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: |
+          node collectMarketData.js > marketBrief_$(date +%Y-%m-%d).json
+
+      - name: Generate HTML & email
+        run: |
+          node generateBrief.js marketBrief_$(date +%Y-%m-%d).json
+
+      - name: Commit and push
+        run: |
+          git config user.email "bot@mandala.ai"
+          git config user.name "Daily Brief Bot"
+          git add index.html archive/*.html marketBrief_*.json email_*.json
+          git commit -m "Daily brief $(date +%Y-%m-%d)" || echo "No changes"
+          git push
+
+      - name: Create email draft (TODO: Gmail MCP integration)
+        run: echo "Email draft ready for manual review in email_$(date +%Y-%m-%d).json"
