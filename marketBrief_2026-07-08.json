@@ -4,94 +4,94 @@
   "organization": "Mandala Sustainable Solutions",
   "location": "San Jose, CA",
   "executive_summary": [
-    "Market Condition: Neutral — Equities rallied on stable macro; breadth improving as rotation continues from mega-cap tech into semiconductors and industrials",
-    "Key Signal: SPY +0.78% and QQQ +1.55% after softer-than-expected June jobs data reinforces Fed cut expectations; broader participation improving",
-    "Risk to Watch: Sector concentration risk remains despite rally; SaaS structural concerns persist; geopolitical oil premium intact",
-    "Cross-Asset: Bonds stable as yield curve steepens further; gold steady $4,150; dollar weakening on rate cut expectations (-0.68%)"
+    "Market Condition: Neutral — [Add market context]",
+    "Key Signal: SPY 0.00% and QQQ 0.00% — [Add key development]",
+    "Risk to Watch: [Add risk observation]",
+    "Cross-Asset: [Add cross-asset view]"
   ],
   "equities": {
     "SPY": {
-      "price": 750.58,
-      "change_percent": 0.78
+      "price": 0,
+      "change_percent": 0
     },
     "QQQ": {
-      "price": 723.64,
-      "change_percent": 1.55
+      "price": 0,
+      "change_percent": 0
     },
     "IWM": {
-      "price": 298.90,
-      "change_percent": -0.07
+      "price": 0,
+      "change_percent": 0
     },
     "VIX": {
-      "level": 16.40,
-      "signal": "Elevated"
+      "level": 16,
+      "signal": "Normal"
     },
     "sectors": {
-      "strength": "Semiconductors (AI infrastructure resilience despite 4.5% intra-sector weakness), Industrials, Energy (oil supply concerns)",
-      "weakness": "Software/SaaS (structural AI disruption), Real Estate (rate sensitive), Utilities (end demand softening)"
+      "strength": "[Top 3 gaining sectors]",
+      "weakness": "[Top 3 declining sectors]"
     },
-    "synthesis": "Equities found support on stable macro data; SPY +0.78% and QQQ +1.55% show broadening participation beyond mega-cap darlings. Sector rotation accelerating as investors rotate out of rate-sensitive tech into cyclicals and hard assets. Small caps lagging (IWM -0.07%) signals risk-off bias for lower-quality names."
+    "synthesis": "[Equity market synthesis and interpretation]"
   },
   "fixed_income": {
     "treasury_10y": {
-      "yield": 4.47,
-      "context": "Stable; market pricing Fed cuts for H2"
+      "yield": 4.48,
+      "context": "Stable; market pricing"
     },
     "treasury_2y": {
-      "yield": 4.11,
-      "context": "Flat; reflecting near-term rate expectations"
+      "yield": 4.13,
+      "context": "Flat; reflecting rate expectations"
     },
     "yield_curve_spread": {
-      "bps": 36,
+      "bps": 35,
       "direction": "Steepening"
     },
     "hy_spreads": {
       "bps": 275,
-      "signal": "Tight — Credit complacency remains"
+      "signal": "Tight"
     },
     "TLT": {
-      "price": 85.45,
-      "change_percent": 0.78
+      "price": 0,
+      "change_percent": 0
     },
-    "synthesis": "Curve steepening continues as market prices Fed easing cycle. TLT rallying (+0.78%) on falling long-end yields signals investors front-running rate cut narrative. HY spreads compressed at 275 bps — watch for widening if growth concerns resurface; credit market not pricing recession risk adequately."
+    "synthesis": "[Bond market synthesis and Fed rate expectations]"
   },
   "commodities": {
     "WTI_oil": {
-      "price": 69.18,
-      "change_percent": 0.83
+      "price": 0,
+      "change_percent": 0
     },
     "gold": {
-      "price": 4147.94,
-      "signal": "Down -0.41%; risk-off sentiment easing"
+      "price": 0,
+      "signal": "Falling"
     },
     "copper": {
-      "price": 5.25,
-      "signal": "Holding key support; bullish while above $5.25/lb"
+      "price": 0,
+      "signal": "[Support level assessment]"
     },
     "DXY": {
-      "level": 100.23,
-      "change_percent": -0.68
+      "level": 0,
+      "change_percent": 0
     },
-    "synthesis": "Oil +0.83% to $69.18 on Strait of Hormuz geopolitical concerns; upside risks to energy prices remain. Dollar weakening sharply (-0.68%) on Fed rate cut expectations—classic risk-on signal. Gold retreat (-0.41%) reflects easing geopolitical bid; copper holding structural support level, showing resilience on tech/AI infrastructure demand."
+    "synthesis": "[Commodity market and dollar context]"
   },
   "macro": {
-    "fed_funds_rate": "3.50%-3.75%",
+    "fed_funds_rate": "3.63%",
     "fed_stance": "Hold likely; cuts priced for late July/August",
-    "next_fomc": "July 28-29, 2026",
+    "next_fomc": "[Next FOMC Date]",
     "CPI": {
-      "headline_yoy": 4.2,
-      "latest": "May 2026",
-      "context": "Above target; June data due July 14"
+      "headline_yoy": 333.979,
+      "latest": "[Latest month]",
+      "context": "[Above/Below/At target]"
     },
     "jobless_claims": {
       "latest": 215000,
-      "signal": "Falling; labor market gradually cooling"
+      "signal": "[Rising/Falling/Stable]"
     },
     "ISM_PMI": {
-      "latest": 53.3,
-      "signal": "Expansion; moderation continues"
+      "latest": "0.1",
+      "signal": "[Expansion/Contraction]"
     },
-    "synthesis": "June jobs data softening (215K claims) is the catalyst shifting Fed expectations toward H2 cuts. ISM Manufacturing at 53.3 continues moderation story—expansion intact but losing momentum. Inflation remains sticky at 4.2% YoY (May), but rate cut market is discounting a easing cycle starting late July. FOMC minutes this week will be critical for signaling timing and magnitude of cuts."
+    "synthesis": "[Macro synthesis connecting economic data to market signals]"
   },
   "assessment": {
     "overall_condition": "Neutral",
@@ -100,11 +100,11 @@
     "stress_level": "Normal"
   },
   "watchpoints": [
-    "FOMC Minutes released this week — any hawkish surprise would reverse Fed cut narrative and pressure equities sharply",
-    "June CPI due Tuesday July 14 at 8:30 AM ET — market expecting moderation; data above expectations could derail rate cut bets",
-    "Sector breadth — monitor if small caps (IWM) stabilize or continue lagging; indicates risk appetite sustainability",
-    "Oil geopolitical escalation — watch if Strait of Hormuz tensions worsen; oil could spike above $72 quickly",
-    "Tech earnings guidance — Q2 results rolling in; watch for SaaS margin pressure and AI displacement commentary"
+    "[Monitor specific data release or event]",
+    "[Monitor specific data release or event]",
+    "[Monitor specific data release or event]",
+    "[Monitor specific data release or event]",
+    "[Monitor specific data release or event]"
   ],
   "disclaimer": "This report is for informational and educational purposes only and does not constitute investment advice, a solicitation, or a recommendation to buy or sell any security. Past market conditions are not indicative of future results. Andy Kannurpatti and Mandala Sustainable Solutions LLC are not registered investment advisors. Recipients should consult a qualified financial advisor before making any investment decisions. Data sourced from Yahoo Finance, FRED, CNBC, ISM, U.S. Department of Labor, and U.S. Department of Treasury — accuracy not guaranteed."
 }
