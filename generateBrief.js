@@ -15,7 +15,9 @@ const MANDALA_SAGE = '#EFF4ED';
 // ============================================================================
 function generateHTML(data) {
   const formatDate = (dateStr) => {
-    const date = new Date(dateStr);
+    // Parse date string (YYYY-MM-DD) without timezone conversion
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
     return date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   };
 
@@ -215,8 +217,8 @@ function generateHTML(data) {
         <div class="section">
             <h2>Equities</h2>
             <div style="margin-bottom: 15px;">
-                <div class="metric">SPY: $${data.equities.SPY.price} <span class="negative">${formatPercent(data.equities.SPY.change_percent)}</span></div>
-                <div class="metric">QQQ: $${data.equities.QQQ.price} <span class="positive">${formatPercent(data.equities.QQQ.change_percent)}</span></div>
+                <div class="metric">SPY: $${data.equities.SPY.price} <span class="${data.equities.SPY.change_percent > 0 ? 'positive' : 'negative'}">${formatPercent(data.equities.SPY.change_percent)}</span></div>
+                <div class="metric">QQQ: $${data.equities.QQQ.price} <span class="${data.equities.QQQ.change_percent > 0 ? 'positive' : 'negative'}">${formatPercent(data.equities.QQQ.change_percent)}</span></div>
                 <div class="metric">IWM: $${data.equities.IWM.price} <span class="neutral">Flat</span></div>
                 <div class="metric">VIX: ${data.equities.VIX.level} <span class="neutral">${data.equities.VIX.signal}</span></div>
             </div>
@@ -241,7 +243,7 @@ function generateHTML(data) {
                 <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid ${MANDALA_GREEN};">
                     <h4 style="color: ${MANDALA_GREEN}; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Credit & Bonds</h4>
                     <p style="font-size: 13px;"><strong>HY Spreads:</strong> ${data.fixed_income.hy_spreads.bps} bps (${data.fixed_income.hy_spreads.signal})</p>
-                    <p style="font-size: 13px;"><strong>TLT:</strong> $${data.fixed_income.TLT.price} <span class="negative">${formatPercent(data.fixed_income.TLT.change_percent)}</span></p>
+                    <p style="font-size: 13px;"><strong>TLT:</strong> $${data.fixed_income.TLT.price} <span class="${data.fixed_income.TLT.change_percent > 0 ? 'positive' : 'negative'}">${formatPercent(data.fixed_income.TLT.change_percent)}</span></p>
                 </div>
             </div>
             <div class="signal-box">
@@ -254,14 +256,13 @@ function generateHTML(data) {
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 15px 0;">
                 <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid ${MANDALA_GREEN};">
                     <h4 style="color: ${MANDALA_GREEN}; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Energy & Metals</h4>
-                    <p style="font-size: 13px;"><strong>WTI:</strong> $${data.commodities.WTI_oil.price} <span class="positive">${formatPercent(data.commodities.WTI_oil.change_percent)}</span></p>
+                    <p style="font-size: 13px;"><strong>WTI:</strong> $${data.commodities.WTI_oil.price} <span class="${data.commodities.WTI_oil.change_percent > 0 ? 'positive' : 'negative'}">${formatPercent(data.commodities.WTI_oil.change_percent)}</span></p>
                     <p style="font-size: 13px;"><strong>Gold:</strong> ~$${data.commodities.gold.price} (${data.commodities.gold.signal})</p>
                     <p style="font-size: 13px;"><strong>Copper:</strong> >$${data.commodities.copper.price}/lb (${data.commodities.copper.signal})</p>
                 </div>
                 <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid ${MANDALA_GREEN};">
                     <h4 style="color: ${MANDALA_GREEN}; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Dollar</h4>
-                    <p style="font-size: 13px;"><strong>DXY:</strong> ${data.commodities.DXY.level} <span class="positive">${formatPercent(data.commodities.DXY.change_percent)}</span></p>
-                    <p style="font-size: 12px; color: #666; margin-top: 8px;"><em>Slight strength; conflicting signals (higher rates vs. geopolitical risk flight-to-quality).</em></p>
+                    <p style="font-size: 13px;"><strong>DXY:</strong> ${data.commodities.DXY.level} <span class="${data.commodities.DXY.change_percent > 0 ? 'positive' : 'negative'}">${formatPercent(data.commodities.DXY.change_percent)}</span></p>
                 </div>
             </div>
             <div class="signal-box">
@@ -279,9 +280,13 @@ function generateHTML(data) {
                 </div>
                 <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid ${MANDALA_GREEN};">
                     <h4 style="color: ${MANDALA_GREEN}; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Inflation</h4>
-                    <p style="font-size: 13px;"><strong>Latest CPI:</strong> ${data.macro.CPI.headline_yoy}% YoY (${data.macro.CPI.latest})</p>
+                    <p style="font-size: 13px;"><strong>Latest CPI:</strong> ${data.macro.CPI.headline_yoy}% YoY</p>
                     <p style="font-size: 12px; color: #666; margin-top: 8px;">${data.macro.CPI.context}</p>
                 </div>
+            </div>
+            <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid ${MANDALA_GREEN}; margin-bottom: 15px;">
+                <p style="font-size: 13px;"><strong>Jobless Claims:</strong> ${data.macro.jobless_claims.latest.toLocaleString()} (${data.macro.jobless_claims.signal})</p>
+                <p style="font-size: 13px; margin-top: 8px;"><strong>ISM PMI:</strong> ${data.macro.ISM_PMI.latest} (${data.macro.ISM_PMI.signal})</p>
             </div>
             <div class="signal-box">
                 <strong>Macro Synthesis:</strong> ${data.macro.synthesis}
@@ -334,7 +339,9 @@ function generateHTML(data) {
 // ============================================================================
 function generateEmail(data) {
   const formatDate = (dateStr) => {
-    const date = new Date(dateStr);
+    // Parse date string (YYYY-MM-DD) without timezone conversion
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
     return date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   };
 
@@ -354,7 +361,7 @@ function generateEmail(data) {
 <h3 style="color: ${MANDALA_GREEN}; margin-top: 25px; font-size: 16px;">Key Findings</h3>
 <ul style="line-height: 1.9;">
   <li><strong>Equities:</strong> SPY ${formatPercent(data.equities.SPY.change_percent)} | QQQ ${formatPercent(data.equities.QQQ.change_percent)} | IWM Flat | VIX ${data.equities.VIX.level}</li>
-  <li><strong>Fixed Income:</strong> 10Y ${data.fixed_income.treasury_10y.yield}% (${data.fixed_income.treasury_10y.context}) | 2Y ${data.fixed_income.treasury_2y.yield}% | TLT ${formatPercent(data.fixed_income.TLT.change_percent)}</li>
+  <li><strong>Fixed Income:</strong> 10Y ${data.fixed_income.treasury_10y.yield}% | 2Y ${data.fixed_income.treasury_2y.yield}% | TLT ${formatPercent(data.fixed_income.TLT.change_percent)}</li>
   <li><strong>Commodities:</strong> WTI ${formatPercent(data.commodities.WTI_oil.change_percent)} to $${data.commodities.WTI_oil.price} | Gold ~$${data.commodities.gold.price} | Copper >$${data.commodities.copper.price}/lb</li>
   <li><strong>Macro:</strong> Fed ${data.macro.fed_stance} ${data.macro.fed_funds_rate} | CPI ${data.macro.CPI.headline_yoy}% YoY | Jobless claims ${data.macro.jobless_claims.latest.toLocaleString()} | ISM PMI ${data.macro.ISM_PMI.latest}</li>
 </ul>
