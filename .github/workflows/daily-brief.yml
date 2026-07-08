@@ -5,6 +5,8 @@ on:
     # 4:30 PM ET during daylight saving time = 20:30 UTC (covers most of the year)
     # During standard time (Nov-Mar) this runs at 3:30 PM EST, acceptable trade-off
     - cron: '30 20 * * 1-5'
+  workflow_dispatch:
+    # Allow manual triggering from GitHub Actions tab
 
 jobs:
   generate-brief:
