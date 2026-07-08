@@ -32,11 +32,13 @@ jobs:
           node generateBrief.js marketBrief_$(date +%Y-%m-%d).json
 
       - name: Commit and push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.email "noreply@github.com"
-          git config user.name "Daily Brief Bot"
+          git config --global user.email "noreply@github.com"
+          git config --global user.name "Daily Brief Bot"
+          git config --global credential.helper store
+          echo "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com" > ~/.git-credentials
           git add index.html archive/*.html marketBrief_*.json
           git commit -m "Daily brief $(date +%Y-%m-%d)" || echo "No changes"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
