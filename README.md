@@ -1,149 +1,163 @@
-# Daily Market Briefing — Execution Instructions
+# Daily Market Briefing — Fully Autonomous System
 
-**Schedule:** Weekdays 4:30 PM ET  
-**Autonomous Run:** Yes
+Generates professional market reports automatically every weekday at 4:30 PM ET via GitHub Actions.
+
+**Live Report:** https://andykannurpatti.github.io/market-brief/
 
 ---
 
-## Daily Workflow (5 Steps)
+## How It Works
 
-### 1. Search Web for Market Data
+**Automated Execution (GitHub Actions):**
+1. Collects live market data from Yahoo Finance + FRED APIs
+2. Transforms data into market analysis JSON
+3. Generates HTML report
+4. Publishes to GitHub Pages automatically
+5. Archives dated copies
 
-Collect current market data:
+**Schedule:** Every weekday (Mon–Fri) at 4:30 PM ET
 
-**Equities**
-- SPY: price, % change
-- QQQ: price, % change
-- IWM: price, % change
-- VIX: current level
-- S&P 500 sector performance (top 3 gainers, top 3 losers)
+---
 
-**Fixed Income**
-- US 10-year Treasury yield
-- US 2-year Treasury yield
-- Yield curve spread (10Y minus 2Y)
-- HY credit spreads (bps)
-- TLT (20yr Treasury ETF) % change
+## Setup
 
-**Commodities**
-- WTI crude oil price
-- Gold price
-- Copper price
-- DXY dollar index
+### 1. Add FRED API Key as GitHub Secret
 
-**Macro Context**
-- Fed funds rate (current target range)
-- Latest CPI reading (month, YoY %)
-- Latest unemployment claims (weekly)
-- Latest ISM Manufacturing PMI
+The workflow needs access to Federal Reserve Economic Data (FRED).
 
-### 2. Create marketBrief_[YYYY-MM-DD].json
+1. Go to your GitHub repo → **Settings** → **Secrets and variables** → **Actions**
+2. Click **New repository secret**
+3. Name: `FRED_API_KEY`
+4. Value: (paste your FRED API key from https://fred.stlouisfed.org/docs/api)
+5. Save
 
-Use `marketBrief_2026-07-07.json` as template (in outputs folder).
+**Note:** GitHub automatically provides `GITHUB_TOKEN` for git operations.
 
-**Critical:** Set `assessment.overall_condition` field once:
-```json
-{
-  "assessment": {
-    "overall_condition": "Stretched|Caution|Neutral|etc",  ← SINGLE SOURCE
-    "trend": "Bullish|Neutral|Bearish",
-    "breadth": "Broad|Healthy|Narrowing|Thin",
-    "stress_level": "Low|Normal|Elevated|High"
-  }
-}
+### 2. Workflow File
+
+The workflow `.github/workflows/daily-brief.yml` is already in the repo and configured to:
+- Trigger on schedule (4:30 PM ET, weekdays)
+- Run `collectMarketData.js` to fetch live data
+- Run `generateBrief.js` to create the HTML report
+- Commit and push results to the repo
+- GitHub Pages auto-publishes the report
+
+---
+
+## Data Sources
+
+### Market Data (Yahoo Finance)
+- **Equities:** SPY, QQQ, IWM (prices, % changes), VIX
+- **Fixed Income:** 10Y/2Y Treasury yields, TLT
+- **Commodities:** WTI crude oil, Gold, Copper, DXY dollar index
+
+### Economic Data (FRED API)
+- Fed funds rate
+- CPI (headline year-over-year)
+- Jobless claims
+- ISM Manufacturing PMI
+
+---
+
+## File Structure
+
+```
+market-brief/
+├── .github/workflows/
+│   └── daily-brief.yml          ← GitHub Actions workflow
+├── collectMarketData.js          ← Fetches live data from APIs
+├── generateBrief.js              ← Transforms JSON → HTML
+├── marketBrief_template.json     ← Schema reference
+├── index.html                    ← Latest report (live on GitHub Pages)
+├── archive/                      ← Dated report copies
+│   └── 2026-07-08.html
+└── README.md                     ← This file
 ```
 
-This value cascades to:
-- Executive Summary (1st bullet)
-- Overall Condition Assessment section
-- Email body
+---
 
-Update all data fields and synthesis text.
+## Workflow Output
 
-### 3. Generate HTML & Email
+**Daily Outputs:**
+- `index.html` — Latest report (published to GitHub Pages)
+- `archive/YYYY-MM-DD.html` — Dated copy
+- `marketBrief_YYYY-MM-DD.json` — Market data source
+- `DailyBrief_YYYY-MM-DD.html` — Report file
+
+---
+
+## Monitoring
+
+1. **GitHub Actions:** Repo → **Actions** tab to see run history and logs
+2. **Live Report:** https://andykannurpatti.github.io/market-brief/
+3. **Dated Archives:** https://andykannurpatti.github.io/market-brief/archive/YYYY-MM-DD.html
+
+---
+
+## Manual Execution (Testing)
+
+To run locally for testing:
 
 ```bash
-node generateBrief.js marketBrief_[YYYY-MM-DD].json
+# Set FRED API key
+export FRED_API_KEY="your_key_here"
+
+# Collect data
+node collectMarketData.js > marketBrief_$(date +%Y-%m-%d).json
+
+# Generate report
+node generateBrief.js marketBrief_$(date +%Y-%m-%d).json
+
+# Publish (if desired)
+cp DailyBrief_*.html index.html
+cp DailyBrief_*.html archive/$(date +%Y-%m-%d).html
+git add index.html archive/
+git commit -m "Daily brief $(date +%Y-%m-%d)"
+git push origin main
 ```
-
-**Outputs:**
-- `DailyBrief_[YYYY-MM-DD].html` — ready to publish
-- `email_[YYYY-MM-DD].json` — email draft template
-
-### 4. Publish to GitHub Pages
-
-```bash
-# Ensure latest repo pulled
-git pull
-
-# Create/update archive and index
-mkdir -p archive
-cp DailyBrief_[YYYY-MM-DD].html index.html
-cp DailyBrief_[YYYY-MM-DD].html archive/[YYYY-MM-DD].html
-
-# Commit and push
-git config user.email "andykannurpatti@gmail.com"
-git config user.name "Market Brief Bot"
-git add index.html archive/[YYYY-MM-DD].html
-git commit -m "Daily brief [YYYY-MM-DD]"
-git push
-```
-
-**Live URLs:**
-- Latest: https://andykannurpatti.github.io/market-brief/
-- Dated: https://andykannurpatti.github.io/market-brief/archive/[YYYY-MM-DD].html
-
-### 5. Create Email Draft
-
-Read `email_[YYYY-MM-DD].json` and call email create_draft tool:
-```
-to: ["andykannurpatti@gmail.com"]
-subject: "Daily Market Briefing — [YYYY-MM-DD] · Mandala"
-htmlBody: [from email_[YYYY-MM-DD].json]
-```
-
-User reviews and sends from Gmail.
 
 ---
 
-## Consistency Guarantee
+## Single-Source Architecture
 
-All outputs (HTML + email) derive from single JSON file:
+**Key design principle:** All outputs derive from one JSON source.
 
-✅ Market condition stated identically everywhere  
-✅ All metrics from one source  
-✅ No manual variation or transcription errors  
-✅ Safe for autonomous daily runs
+- Market data collected → `marketBrief_YYYY-MM-DD.json`
+- JSON transformed → `DailyBrief_YYYY-MM-DD.html`
+- HTML published → Live on GitHub Pages
 
----
-
-## Files in Repo
-
-- `generateBrief.js` — Generator script (transforms JSON → HTML + email)
-- `index.html` — Current day's report (live on GitHub Pages)
-- `archive/[YYYY-MM-DD].html` — Dated archive copies
-- `README.md` — This file
+**Benefits:**
+- No manual transcription errors
+- Consistent data across all outputs
+- Safe for daily autonomous runs
+- Easy to update later (regenerate from updated JSON)
 
 ---
 
-## Template Schema
+## Technical Notes
 
-Reference: `marketBrief_2026-07-07.json` in outputs folder
-
-Required fields:
-- `date`, `assessment`, `executive_summary`
-- `equities`, `fixed_income`, `commodities`, `macro`
-- `watchpoints`, `disclaimer`
-
-All synthesis/analysis text flows directly to report and email.
+- **Timezone handling:** Dates parsed as local time (ET) without UTC conversion
+- **Node.js version:** 18.x (configured in workflow)
+- **GitHub token:** Fine-grained PAT with workflow scope (required for pushing workflow files)
+- **Cron schedule:** `30 20 * * 1-5` (UTC) = 4:30 PM EDT / 3:30 PM EST
 
 ---
 
-## Notes
+## Development
 
-1. **The JSON is the work.** Once created, everything else is automatic.
-2. **Set `overall_condition` once** — it cascades everywhere.
-3. **No manual email composition** — generated from JSON.
-4. **No report editing after generation** — update JSON and regenerate.
-5. **Daily consistency maintained** — no manual verification needed.
+### collectMarketData.js
+Fetches live market data from Yahoo Finance + FRED APIs. Returns complete `marketBrief_[YYYY-MM-DD].json` structure ready for HTML generation.
 
+### generateBrief.js
+Transforms `marketBrief_[YYYY-MM-DD].json` into:
+- `DailyBrief_[YYYY-MM-DD].html` — Formatted report with Mandala branding
+- Associated market analysis JSON
+
+Both outputs guaranteed consistent—derived from same source JSON.
+
+---
+
+## Contact
+
+Andy Kannurpatti | Mandala Sustainable Solutions LLC  
+San Jose, CA
