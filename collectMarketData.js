@@ -7,13 +7,12 @@
  */
 
 const https = require('https');
-const http = require('http');
+const yahooFinance = require('yahoo-finance2').default;
 
-// Helper: fetch via HTTPS/HTTP
+// Helper: fetch via HTTPS
 function fetchData(url) {
   return new Promise((resolve, reject) => {
-    const protocol = url.startsWith('https') ? https : http;
-    protocol.get(url, { headers: { 'User-Agent': 'Node.js' } }, (res) => {
+    https.get(url, { headers: { 'User-Agent': 'Node.js' } }, (res) => {
       let data = '';
       res.on('data', (chunk) => { data += chunk; });
       res.on('end', () => {
@@ -30,7 +29,6 @@ function fetchData(url) {
 // Get today's date in ET without timezone conversion
 function getDateString() {
   const now = new Date();
-  // Get ET offset (EST = -5, EDT = -4)
   const estTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
   const year = estTime.getFullYear();
   const month = String(estTime.getMonth() + 1).padStart(2, '0');
@@ -38,16 +36,13 @@ function getDateString() {
   return `${year}-${month}-${day}`;
 }
 
-// Fetch stock price from Yahoo Finance (via yfinance query)
+// Fetch stock quote from Yahoo Finance
 async function getStockPrice(symbol) {
   try {
-    const url = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${symbol}?modules=price`;
-    const response = await fetchData(url);
-    const data = JSON.parse(response);
-    const price = data.quoteSummary.result[0].price;
+    const quote = await yahooFinance.quote(symbol);
     return {
-      price: parseFloat(price.regularMarketPrice.raw).toFixed(2),
-      change_percent: parseFloat(price.regularMarketChangePercent.raw).toFixed(2)
+      price: parseFloat(quote.regularMarketPrice).toFixed(2),
+      change_percent: parseFloat(quote.regularMarketChangePercent).toFixed(2)
     };
   } catch (error) {
     console.error(`Error fetching ${symbol}:`, error.message);
@@ -117,7 +112,7 @@ async function main() {
     getEconomicIndicator('MMNRNJ')  // ISM PMI
   ]);
 
-  // Commodity prices (Yahoo Finance - manual symbols)
+  // Commodity prices (Yahoo Finance)
   const [wti, gold, copper, dxy] = await Promise.all([
     getStockPrice('CL=F'),      // WTI Crude Oil
     getStockPrice('GC=F'),      // Gold Futures

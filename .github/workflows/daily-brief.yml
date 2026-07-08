@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install dependencies
+        run: npm install yahoo-finance2
+
       - name: Generate market data
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
