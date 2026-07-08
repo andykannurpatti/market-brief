@@ -39,4 +39,4 @@ jobs:
           git config user.name "Daily Brief Bot"
           git add index.html archive/*.html marketBrief_*.json
           git commit -m "Daily brief $(date +%Y-%m-%d)" || echo "No changes"
-          git push origin main
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
