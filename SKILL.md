@@ -4,7 +4,7 @@ description: Create a daily market report for personal investment awareness
 ---
 
 Create a daily market report for my personal use as an AI consultant 
-and investor. Run this every weekday at 4:30 PM ET.
+and investor. Runs automatically every weekday at 4:30 PM ET via GitHub Actions.
 
 CONTEXT
 My name is Andy Kannurpatti. I run Mandala Sustainable Solutions LLC, 
@@ -12,24 +12,34 @@ an AI consulting firm in San Jose CA. I track markets for personal
 investment awareness, not trading. I want a concise, signal-focused 
 report — not a news summary.
 
-WORKFLOW (4 Steps)
+FULLY AUTONOMOUS WORKFLOW (GitHub Actions)
+Runs on schedule via GitHub Actions. No local machine or manual intervention needed.
 
-## Step 1: Search Web for Market Data
-Collect current market data for all categories:
+## Automatic Execution (GitHub Actions)
 
-**Equities:** SPY (price, % change), QQQ (price, % change), IWM (price, % change), 
-VIX (level), S&P 500 sector performance (top 3 gainers, top 3 losers)
+**When:** Every weekday at 4:30 PM ET (via GitHub Actions schedule)
 
-**Fixed Income:** US 10Y Treasury yield, US 2Y Treasury yield, yield curve spread 
-(10Y minus 2Y), HY credit spreads (bps), TLT (20yr Treasury ETF) % change
+**How:** The workflow `.github/workflows/daily-brief.yml` automatically:
+1. Fetches live market data from Yahoo Finance + FRED APIs
+2. Creates `marketBrief_[YYYY-MM-DD].json` with all live data
+3. Generates `DailyBrief_[YYYY-MM-DD].html` and `email_[YYYY-MM-DD].json`
+4. Commits and pushes to GitHub
+5. Report published to GitHub Pages automatically
 
-**Commodities:** WTI crude oil price, Gold price, Copper price, DXY dollar index, 
-all with direction/change
+**Setup Required:**
+- Store `FRED_API_KEY` as GitHub secret (Repo Settings → Secrets → Actions)
+- Commit `.github/workflows/daily-brief.yml` to repo
+- No local machine or manual intervention needed
 
-**Macro Context:** Fed funds rate (current target range), latest CPI (headline % YoY), 
-latest weekly jobless claims, latest ISM Manufacturing PMI
+**Data Sources:**
+- **Equities:** Yahoo Finance (SPY, QQQ, IWM, VIX, TLT)
+- **Fixed Income:** Yahoo Finance + manual (10Y, 2Y yields, HY spreads, curve calc)
+- **Commodities:** Yahoo Finance (WTI, Gold, Copper, DXY)
+- **Macro:** FRED API (Fed rate, CPI, jobless claims, ISM PMI)
 
-## Step 2: Create marketBrief_[YYYY-MM-DD].json
+---
+
+## Manual Workflow (If Needed)
 
 Use the provided JSON template. Update all data fields:
 - date
@@ -47,68 +57,39 @@ Use the provided JSON template. Update all data fields:
 - Overall Condition Assessment section
 - Email subject + body
 
-## Step 3: Generate HTML & Email Draft
-
+## Step 1: Collect Market Data (Manual)
 ```bash
-node generateBrief.js marketBrief_[YYYY-MM-DD].json
+export FRED_API_KEY="your_key_here"
+node collectMarketData.js > marketBrief_$(date +%Y-%m-%d).json
 ```
 
-**Outputs:**
+## Step 2: Generate HTML & Email
+```bash
+node generateBrief.js marketBrief_$(date +%Y-%m-%d).json
+```
+
+Outputs:
 - `DailyBrief_[YYYY-MM-DD].html` — Report ready to publish
 - `email_[YYYY-MM-DD].json` — Email draft with key metrics and GitHub Pages link
 
-Both outputs derive from the same JSON source → guaranteed consistency.
+Both derive from same JSON source → guaranteed consistency.
 
-**Note on generateBrief.js:** 
-- Version includes timezone-aware date formatting fix
-- Dates parse correctly regardless of system timezone (YYYY-MM-DD → local day display)
-- Tested: 2026-07-08 correctly displays as "Wednesday, July 8, 2026"
-
-## Step 4a: Publish to GitHub Pages
-
-**Token Status:** ✅ Fine-grained GitHub PAT stored securely in `~/.git-credentials`
-(No additional setup required — token is already configured)
+## Step 3: Publish to GitHub
 
 ```bash
 cd /path/to/market-brief/repo
-
-# Pull latest
-git pull
-
-# Create archive directory if needed
-mkdir -p archive
-
-# Copy HTML to index (live) and archive (dated)
-cp DailyBrief_[YYYY-MM-DD].html index.html
-cp DailyBrief_[YYYY-MM-DD].html archive/[YYYY-MM-DD].html
-
-# Configure git to use stored token (already configured globally)
-# If needed: git config --global credential.helper store
-
-# Commit and push (automatically uses stored token for authentication)
-git config user.email "andykannurpatti@gmail.com"
-git config user.name "Daily Market Brief Bot"
 git add index.html archive/[YYYY-MM-DD].html
 git commit -m "Daily brief [YYYY-MM-DD]"
 git push origin main
 ```
 
-The `git push` command will automatically use the stored GitHub token from `~/.git-credentials` for authentication.
-
 **Live URLs:**
 - Latest: https://andykannurpatti.github.io/market-brief/
 - Dated: https://andykannurpatti.github.io/market-brief/archive/[YYYY-MM-DD].html
 
-## Step 4b: Create Email Draft
+## Step 4: Email Draft
 
-Read `email_[YYYY-MM-DD].json` and call Gmail create_draft tool:
-```
-to: ["andykannurpatti@gmail.com"]
-subject: email_[YYYY-MM-DD].json.subject
-htmlBody: email_[YYYY-MM-DD].json.htmlBody
-```
-
-Email draft is ready in Gmail for review and send to mailing list.
+`email_[YYYY-MM-DD].json` contains the formatted email ready for your distribution list.
 
 ---
 
@@ -146,6 +127,19 @@ Reference the provided `marketBrief_template.json` for required fields:
 
 ---
 
-SCHEDULE
+SCHEDULE & EXECUTION
 
-Every weekday (Monday–Friday) at 4:30 PM ET
+**Automatic (GitHub Actions):** Every weekday (Mon–Fri) at 4:30 PM ET
+- Fully autonomous, runs on GitHub's servers
+- No local machine needed
+- Reports publish to GitHub Pages automatically
+
+**Setup Instructions:**
+1. Add FRED_API_KEY as GitHub secret (Repo Settings → Secrets → Actions)
+2. Commit `.github/workflows/daily-brief.yml` to `.github/workflows/` directory
+3. Done — workflow runs on schedule automatically
+
+**Monitor:**
+- Check Actions tab in GitHub repo to see run history
+- Reports appear at https://andykannurpatti.github.io/market-brief/
+- Email drafts stored in repo as `email_[YYYY-MM-DD].json`
